@@ -561,71 +561,6 @@
             </div>
         </div>
         
-        <div class="embed-container">
-            <h3>📈 Project Progress Overview</h3>
-            <div class="progress-section">
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Sales Data Collection & Analysis</span>
-                        <span id="progress-1-label">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-1" style="width: 0%"></div>
-                        <input type="number" class="progress-input" min="0" max="100" value="0" 
-                               onchange="updateProgress(1, this.value)">
-                    </div>
-                </div>
-                
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Supplier Coordination</span>
-                        <span id="progress-2-label">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-2" style="width: 0%"></div>
-                        <input type="number" class="progress-input" min="0" max="100" value="0" 
-                               onchange="updateProgress(2, this.value)">
-                    </div>
-                </div>
-                
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Inventory Ordering</span>
-                        <span id="progress-3-label">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-3" style="width: 0%"></div>
-                        <input type="number" class="progress-input" min="0" max="100" value="0" 
-                               onchange="updateProgress(3, this.value)">
-                    </div>
-                </div>
-                
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Production & Packaging Setup</span>
-                        <span id="progress-4-label">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-4" style="width: 0%"></div>
-                        <input type="number" class="progress-input" min="0" max="100" value="0" 
-                               onchange="updateProgress(4, this.value)">
-                    </div>
-                </div>
-                
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>User Experience Improvements</span>
-                        <span id="progress-5-label">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-5" style="width: 0%"></div>
-                        <input type="number" class="progress-input" min="0" max="100" value="0" 
-                               onchange="updateProgress(5, this.value)">
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <div class="grid">
             <div class="card">
                 <h3><span class="card-icon">✅</span> Quick Actions</h3>
@@ -696,15 +631,6 @@
         }
         
         function loadData() {
-            for (let i = 1; i <= 5; i++) {
-                const saved = localStorage.getItem('progress-' + i);
-                if (saved) {
-                    updateProgress(i, saved);
-                    const input = document.querySelector('#progress-' + i).parentElement.querySelector('.progress-input');
-                    if (input) input.value = saved;
-                }
-            }
-            
             const notes = localStorage.getItem('dashboardNotes');
             if (notes) document.getElementById('quickNotes').value = notes;
             
@@ -887,7 +813,8 @@
         
         function deleteSubsection(button) {
             if (confirm('Delete this entire subsection?')) {
-                button.closest('.subsection').remove();
+                const subsection = button.closest('.subsection');
+                subsection.remove();
                 saveSubsections();
             }
         }
