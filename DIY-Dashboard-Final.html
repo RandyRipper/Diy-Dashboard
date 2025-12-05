@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Program Project Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s;
+        }
+        
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark-mode .header {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .header h1 {
+            color: #e2e8f0;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .header p {
+            color: #a0aec0;
+        }
+        
+        .theme-toggle {
+            background: #edf2f7;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        body.dark-mode .theme-toggle {
+            background: #4a5568;
+        }
+        
+        .call-log-banner {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+        
+        .call-log-banner h3 {
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        
+        .call-log-btn {
+            display: inline-block;
+            background: white;
+            color: #38a169;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .call-log-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1100px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        body.dark-mode .card {
+            background: #2d3748;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: #2d3748;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .card h3 {
+            color: #e2e8f0;
+        }
+        
+        .card-icon {
+            font-size: 1.4em;
+        }
+        
+        .quick-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .quick-links li {
+            padding: 10px;
+            margin-bottom: 6px;
+            background: #f7fafc;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-links li:hover {
+            background: #edf2f7;
+            transform: translateX(3px);
+        }
+        
+        .quick-links a {
+            color: #2d3748;
+            text-decoration: none;
+            display: block;
+            font-size: 0.95em;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .quick-links a {
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode .quick-links li {
+            background: #4a5568;
+        }
+        
+        body.dark-mode .quick-links li:hover {
+            background: #718096;
+        }
+        
+        body.dark-mode #priorities-list li {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode #priorities-list li:hover {
+            background: #718096;
+        }
+        
+        .add-subsection-btn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: #e6fffa;
+            color: #234e52;
+            border: 2px dashed #4fd1c5;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .add-subsection-btn:hover {
+            background: #b2f5ea;
+        }
+        
+        .subsection {
+            margin: 10px 0;
+            padding: 12px;
+            background: #f0f4ff;
+            border-left: 3px solid #9f7aea;
+            border-radius: 6px;
+        }
+        
+        .subsection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .subsection-title {
+            font-weight: 600;
+            color: #553c9a;
+            font-size: 1em;
+        }
+        
+        .subsection-controls button {
+            padding: 3px 6px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 3px;
+        }
+        
+        .edit-subsection-btn {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+        
+        .delete-subsection-btn {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .subsection-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .subsection-links li {
+            padding: 7px;
+            margin-bottom: 4px;
+            background: white;
+            border-radius: 4px;
+            border-left: 2px solid #9f7aea;
+            font-size: 0.9em;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        
+        .status-not-started {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .status-in-progress {
+            background: #feebc8;
+            color: #c05621;
+        }
+        
+        .status-complete {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+        
+        .embed-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+        
+        body.dark-mode .embed-container {
+            background: #2d3748;
+        }
+        
+        .embed-container h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .embed-container h3 {
+            color: #e2e8f0;
+        }
+        
+        .progress-item {
+            margin-bottom: 15px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #4a5568;
+            font-size: 0.9em;
+            transition: color 0.3s;
+        }
+        
+        body.dark-mode .progress-label {
+            color: #e2e8f0;
+        }
+        
+        .progress-bar {
+            height: 25px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+        
+        body.dark-mode .progress-bar {
+            background: #1a202c;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s;
+        }
+        
+        .progress-input {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            padding: 2px 4px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+        
+        .action-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .notes-section {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+        
+        .notes-section h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .notes-section textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 8px;
+            border: 1px solid #fcd34d;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .edit-mode {
+            background: #e6fffa;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        
+        .edit-mode input {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 4px;
+            border: 1px solid #81e6d9;
+            border-radius: 4px;
+        }
+        
+        .edit-mode button {
+            padding: 5px 10px;
+            margin-right: 4px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .save-btn {
+            background: #38b2ac;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="header-content">
+                    <h1>🌱 DIY Program Project Dashboard</h1>
+                    <p>Inventory Management & User Experience Improvements</p>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+            </div>
+            
+            <div class="call-log-banner">
+                <h3>📞 Quick Access: Call Log</h3>
+                <a href="#" class="call-log-btn" oncontextmenu="editCallLogButton(this); return false;" target="_blank" id="callLogMainBtn">Open Call Log Form</a>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card" data-card="planning">
+                <h3><span class="card-icon">📋</span> Project Planning</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Boss Meeting Questions</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Project Timeline</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Weekly Progress Reports</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Main Project Folder</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'planning')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+            
+            <div class="card" data-card="sales">
+                <h3><span class="card-icon">📊</span> Sales & Analysis</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Last Year Sales Data</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">2025 Inventory Forecast</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Product Demand Analysis</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'sales')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+            
+            <div class="card" data-card="suppliers">
+                <h3><span class="card-icon">🏭</span> Suppliers</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Supplier Contact Database</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Order Tracking Sheet</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Price Quotes</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'suppliers')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+            
+            <div class="card" data-card="inventory">
+                <h3><span class="card-icon">📦</span> Inventory Status</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Master Inventory Tracker</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Current Stock Levels</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Reorder Alerts</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'inventory')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+            
+            <div class="card" data-card="communication">
+                <h3><span class="card-icon">📞</span> Communication</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Form</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Database</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Follow-up Tracker</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'communication')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+            
+            <div class="card" data-card="ux">
+                <h3><span class="card-icon">🎨</span> User Experience</h3>
+                <ul class="quick-links">
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Website Audit</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Competitor Analysis</a></li>
+                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">UX Improvements List</a></li>
+                </ul>
+                <button class="add-subsection-btn" onclick="addSubsection(this, 'ux')">+ Add Subsection</button>
+                <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
+            </div>
+        </div>
+        
+        <div class="embed-container">
+            <h3>📈 Project Progress Overview</h3>
+            <div class="progress-section">
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Sales Data Collection & Analysis</span>
+                        <span id="progress-1-label">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-1" style="width: 0%"></div>
+                        <input type="number" class="progress-input" min="0" max="100" value="0" 
+                               onchange="updateProgress(1, this.value)">
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Supplier Coordination</span>
+                        <span id="progress-2-label">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-2" style="width: 0%"></div>
+                        <input type="number" class="progress-input" min="0" max="100" value="0" 
+                               onchange="updateProgress(2, this.value)">
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Inventory Ordering</span>
+                        <span id="progress-3-label">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-3" style="width: 0%"></div>
+                        <input type="number" class="progress-input" min="0" max="100" value="0" 
+                               onchange="updateProgress(3, this.value)">
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Production & Packaging Setup</span>
+                        <span id="progress-4-label">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-4" style="width: 0%"></div>
+                        <input type="number" class="progress-input" min="0" max="100" value="0" 
+                               onchange="updateProgress(4, this.value)">
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>User Experience Improvements</span>
+                        <span id="progress-5-label">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-5" style="width: 0%"></div>
+                        <input type="number" class="progress-input" min="0" max="100" value="0" 
+                               onchange="updateProgress(5, this.value)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3><span class="card-icon">✅</span> Quick Actions</h3>
+                <div>
+                    <a href="#" class="action-button" oncontextmenu="editButton(this); return false;" target="_blank">Log a Call</a>
+                    <a href="#" class="action-button" oncontextmenu="editButton(this); return false;" target="_blank">Open Drive Folder</a>
+                    <a href="#" class="action-button" oncontextmenu="editButton(this); return false;" target="_blank">Update Inventory</a>
+                </div>
+                
+                <div class="notes-section">
+                    <h4>📝 Quick Notes</h4>
+                    <textarea placeholder="Type quick notes here..." id="quickNotes"></textarea>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><span class="card-icon">🎯</span> This Week's Priorities</h3>
+                <ul class="quick-links" id="priorities-list">
+                    <li onclick="editPriority(this)">Meet with boss - get sales data access</li>
+                    <li onclick="editPriority(this)">Contact all suppliers for lead times</li>
+                    <li onclick="editPriority(this)">Begin sales analysis for forecasting</li>
+                    <li onclick="editPriority(this)">Set up all tracking systems</li>
+                    <li onclick="editPriority(this)">Learn production processes</li>
+                </ul>
+                <button class="action-button" onclick="addPriority()" style="margin-top: 10px;">+ Add Priority</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            loadData();
+            loadSubsections();
+            loadTheme();
+            loadCallLogButton();
+        });
+        
+        function loadTheme() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            }
+        }
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+        }
+        
+        function editCallLogButton(button) {
+            const currentUrl = button.href;
+            const newUrl = prompt('Enter Call Log Form URL:', currentUrl !== window.location.href + '#' ? currentUrl : '');
+            if (newUrl !== null && newUrl.trim()) {
+                button.href = newUrl;
+                localStorage.setItem('callLogUrl', newUrl);
+            }
+            return false;
+        }
+        
+        function loadCallLogButton() {
+            const url = localStorage.getItem('callLogUrl');
+            if (url) {
+                document.getElementById('callLogMainBtn').href = url;
+            }
+        }
+        
+        function loadData() {
+            for (let i = 1; i <= 5; i++) {
+                const saved = localStorage.getItem('progress-' + i);
+                if (saved) {
+                    updateProgress(i, saved);
+                    const input = document.querySelector('#progress-' + i).parentElement.querySelector('.progress-input');
+                    if (input) input.value = saved;
+                }
+            }
+            
+            const notes = localStorage.getItem('dashboardNotes');
+            if (notes) document.getElementById('quickNotes').value = notes;
+            
+            const links = JSON.parse(localStorage.getItem('dashboardLinks') || '{}');
+            Object.keys(links).forEach(function(key) {
+                const card = document.querySelector('[data-card="' + key + '"]');
+                if (card && links[key]) {
+                    const items = card.querySelectorAll('.quick-links:not(.subsection-links) a');
+                    links[key].forEach(function(url, index) {
+                        if (items[index] && url) items[index].href = url;
+                    });
+                }
+            });
+            
+            const statuses = JSON.parse(localStorage.getItem('cardStatuses') || '{}');
+            Object.keys(statuses).forEach(function(card) {
+                const badge = document.querySelector('[data-card="' + card + '"] .status-badge');
+                if (badge) {
+                    badge.className = 'status-badge ' + statuses[card].class;
+                    badge.textContent = statuses[card].text;
+                }
+            });
+            
+            const priorities = JSON.parse(localStorage.getItem('priorities') || '[]');
+            if (priorities.length > 0) {
+                const list = document.getElementById('priorities-list');
+                list.innerHTML = '';
+                priorities.forEach(function(p) {
+                    const li = document.createElement('li');
+                    li.textContent = p;
+                    li.onclick = function() { editPriority(this); };
+                    list.appendChild(li);
+                });
+            }
+        }
+        
+        function updateProgress(id, value) {
+            document.getElementById('progress-' + id).style.width = value + '%';
+            document.getElementById('progress-' + id + '-label').textContent = value + '%';
+            localStorage.setItem('progress-' + id, value);
+        }
+        
+        document.getElementById('quickNotes').addEventListener('input', function() {
+            localStorage.setItem('dashboardNotes', this.value);
+        });
+        
+        function editLink(element) {
+            const link = element;
+            const currentUrl = link.href;
+            const currentText = link.textContent;
+            
+            const newText = prompt('Edit link text:', currentText);
+            if (newText === null) return false;
+            
+            const newUrl = prompt('Enter URL (paste your Google Drive link):', currentUrl !== window.location.href + '#' ? currentUrl : '');
+            if (newUrl === null) return false;
+            
+            link.textContent = newText || currentText;
+            link.href = newUrl || currentUrl;
+            
+            saveAllLinks();
+            return false;
+        }
+        
+        function saveAllLinks() {
+            const cards = document.querySelectorAll('[data-card]');
+            const allLinks = {};
+            cards.forEach(function(card) {
+                const cardId = card.getAttribute('data-card');
+                const links = Array.from(card.querySelectorAll('.quick-links:not(.subsection-links) a')).map(function(a) { return a.href; });
+                allLinks[cardId] = links;
+            });
+            localStorage.setItem('dashboardLinks', JSON.stringify(allLinks));
+        }
+        
+        function editButton(button) {
+            const currentText = button.textContent;
+            const currentUrl = button.href;
+            
+            const newUrl = prompt('Enter URL for "' + currentText + '" (paste your Google Drive link):', currentUrl !== window.location.href + '#' ? currentUrl : '');
+            if (newUrl !== null && newUrl.trim()) {
+                button.href = newUrl;
+            }
+            return false;
+        }
+        
+        function cycleStatus(badge) {
+            const statuses = [
+                { class: 'status-not-started', text: 'Not Started' },
+                { class: 'status-in-progress', text: 'In Progress' },
+                { class: 'status-complete', text: 'Complete' }
+            ];
+            let current = 0;
+            statuses.forEach(function(s, i) {
+                if (badge.classList.contains(s.class)) current = i;
+            });
+            const next = (current + 1) % statuses.length;
+            badge.className = 'status-badge ' + statuses[next].class;
+            badge.textContent = statuses[next].text;
+            saveStatuses();
+        }
+        
+        function saveStatuses() {
+            const cards = document.querySelectorAll('[data-card]');
+            const statuses = {};
+            cards.forEach(function(card) {
+                const cardName = card.getAttribute('data-card');
+                const badge = card.querySelector('.status-badge');
+                const statusClass = Array.from(badge.classList).find(function(c) { return c.startsWith('status-'); });
+                statuses[cardName] = { class: statusClass, text: badge.textContent };
+            });
+            localStorage.setItem('cardStatuses', JSON.stringify(statuses));
+        }
+        
+        function editPriority(li) {
+            const newText = prompt('Edit priority:', li.textContent);
+            if (newText !== null && newText.trim() !== '') {
+                li.textContent = newText;
+                savePriorities();
+            } else if (newText === '') {
+                li.remove();
+                savePriorities();
+            }
+        }
+        
+        function addPriority() {
+            const newText = prompt('Enter new priority:');
+            if (newText && newText.trim() !== '') {
+                const li = document.createElement('li');
+                li.textContent = newText;
+                li.onclick = function() { editPriority(this); };
+                document.getElementById('priorities-list').appendChild(li);
+                savePriorities();
+            }
+        }
+        
+        function savePriorities() {
+            const items = Array.from(document.getElementById('priorities-list').querySelectorAll('li')).map(function(li) { return li.textContent; });
+            localStorage.setItem('priorities', JSON.stringify(items));
+        }
+        
+        function addSubsection(button, cardId) {
+            const name = prompt('Enter subsection name (e.g., "Container Suppliers"):');
+            if (!name || !name.trim()) return;
+            
+            const numLinks = prompt('How many links in this subsection? (1-5)', '3');
+            const count = Math.min(5, Math.max(1, parseInt(numLinks) || 3));
+            
+            const div = document.createElement('div');
+            div.className = 'subsection';
+            div.setAttribute('data-subsection', cardId);
+            
+            let html = '<div class="subsection-header">' +
+                '<div class="subsection-title">' + name + '</div>' +
+                '<div class="subsection-controls">' +
+                    '<button class="edit-subsection-btn" onclick="editSubsectionName(this)">✏️</button>' +
+                    '<button class="delete-subsection-btn" onclick="deleteSubsection(this)">🗑️</button>' +
+                '</div>' +
+            '</div><ul class="subsection-links">';
+            
+            for (let i = 1; i <= count; i++) {
+                html += '<li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Link ' + i + '</a></li>';
+            }
+            html += '</ul>';
+            div.innerHTML = html;
+            
+            button.parentElement.insertBefore(div, button);
+            saveSubsections();
+        }
+        
+        function editSubsectionName(button) {
+            const div = button.closest('.subsection');
+            const title = div.querySelector('.subsection-title');
+            const newName = prompt('Edit subsection name:', title.textContent);
+            if (newName && newName.trim()) {
+                title.textContent = newName;
+                saveSubsections();
+            }
+        }
+        
+        function deleteSubsection(button) {
+            if (confirm('Delete this entire subsection?')) {
+                button.closest('.subsection').remove();
+                saveSubsections();
+            }
+        }
+        
+        function saveSubsections() {
+            const cards = document.querySelectorAll('[data-card]');
+            const all = {};
+            cards.forEach(function(card) {
+                const id = card.getAttribute('data-card');
+                const subs = card.querySelectorAll('.subsection');
+                all[id] = [];
+                subs.forEach(function(sub) {
+                    const title = sub.querySelector('.subsection-title').textContent;
+                    const links = Array.from(sub.querySelectorAll('.subsection-links a')).map(function(a) {
+                        return { text: a.textContent, url: a.href };
+                    });
+                    all[id].push({ title: title, links: links });
+                });
+            });
+            localStorage.setItem('subsections', JSON.stringify(all));
+        }
+        
+        function loadSubsections() {
+            const saved = localStorage.getItem('subsections');
+            if (!saved) return;
+            const all = JSON.parse(saved);
+            Object.keys(all).forEach(function(cardId) {
+                const card = document.querySelector('[data-card="' + cardId + '"]');
+                if (!card) return;
+                const btn = card.querySelector('.add-subsection-btn');
+                if (!btn) return;
+                all[cardId].forEach(function(sub) {
+                    const div = document.createElement('div');
+                    div.className = 'subsection';
+                    div.setAttribute('data-subsection', cardId);
+                    let html = '<div class="subsection-header">' +
+                        '<div class="subsection-title">' + sub.title + '</div>' +
+                        '<div class="subsection-controls">' +
+                            '<button class="edit-subsection-btn" onclick="editSubsectionName(this)">✏️</button>' +
+                            '<button class="delete-subsection-btn" onclick="deleteSubsection(this)">🗑️</button>' +
+                        '</div>' +
+                    '</div><ul class="subsection-links">';
+                    sub.links.forEach(function(link) {
+                        html += '<li><a href="' + link.url + '" oncontextmenu="editLink(this); return false;" target="_blank">' + link.text + '</a></li>';
+                    });
+                    html += '</ul>';
+                    div.innerHTML = html;
+                    card.insertBefore(div, btn);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
