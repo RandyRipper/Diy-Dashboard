@@ -195,6 +195,9 @@
             border-left: 3px solid #667eea;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .quick-links li:hover {
@@ -205,9 +208,26 @@
         .quick-links a {
             color: #2d3748;
             text-decoration: none;
-            display: block;
             font-size: 0.95em;
             transition: color 0.3s;
+            flex: 1;
+        }
+        
+        .link-delete-btn {
+            padding: 2px 6px;
+            background: #fed7d7;
+            color: #c53030;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-left: 8px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .link-delete-btn:hover {
+            opacity: 1;
         }
         
         body.dark-mode .quick-links a {
@@ -273,12 +293,12 @@
         }
         
         .subsection-controls button {
-            padding: 3px 6px;
+            padding: 4px 8px;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-size: 0.8em;
-            margin-left: 3px;
+            font-size: 1em;
+            margin-left: 5px;
         }
         
         .edit-subsection-btn {
@@ -496,10 +516,22 @@
             <div class="card" data-card="planning">
                 <h3><span class="card-icon">📋</span> Project Planning</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Boss Meeting Questions</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Project Timeline</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Weekly Progress Reports</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Main Project Folder</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Boss Meeting Questions</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Project Timeline</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Weekly Progress Reports</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Main Project Folder</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'planning')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -508,9 +540,18 @@
             <div class="card" data-card="sales">
                 <h3><span class="card-icon">📊</span> Sales & Analysis</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Last Year Sales Data</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">2025 Inventory Forecast</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Product Demand Analysis</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Last Year Sales Data</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">2025 Inventory Forecast</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Product Demand Analysis</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'sales')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -519,9 +560,18 @@
             <div class="card" data-card="suppliers">
                 <h3><span class="card-icon">🏭</span> Suppliers</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Supplier Contact Database</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Order Tracking Sheet</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Price Quotes</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Supplier Contact Database</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Order Tracking Sheet</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Price Quotes</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'suppliers')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -530,9 +580,18 @@
             <div class="card" data-card="inventory">
                 <h3><span class="card-icon">📦</span> Inventory Status</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Master Inventory Tracker</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Current Stock Levels</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Reorder Alerts</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Master Inventory Tracker</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Current Stock Levels</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Reorder Alerts</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'inventory')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -541,9 +600,18 @@
             <div class="card" data-card="communication">
                 <h3><span class="card-icon">📞</span> Communication</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Form</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Database</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Follow-up Tracker</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Form</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Call Log Database</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Follow-up Tracker</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'communication')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -552,9 +620,18 @@
             <div class="card" data-card="ux">
                 <h3><span class="card-icon">🎨</span> User Experience</h3>
                 <ul class="quick-links">
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Website Audit</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Competitor Analysis</a></li>
-                    <li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">UX Improvements List</a></li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Website Audit</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Competitor Analysis</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
+                    <li>
+                        <a href="#" oncontextmenu="editLink(this); return false;" target="_blank">UX Improvements List</a>
+                        <button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button>
+                    </li>
                 </ul>
                 <button class="add-subsection-btn" onclick="addSubsection(this, 'ux')">+ Add Subsection</button>
                 <span class="status-badge status-not-started" onclick="cycleStatus(this)">Not Started</span>
@@ -792,7 +869,7 @@
             '</div><ul class="subsection-links">';
             
             for (let i = 1; i <= count; i++) {
-                html += '<li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Link ' + i + '</a></li>';
+                html += '<li><a href="#" oncontextmenu="editLink(this); return false;" target="_blank">Link ' + i + '</a><button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button></li>';
             }
             html += '</ul>';
             div.innerHTML = html;
@@ -816,6 +893,14 @@
                 const subsection = button.closest('.subsection');
                 subsection.remove();
                 saveSubsections();
+            }
+        }
+        
+        function deleteMainLink(button) {
+            if (confirm('Delete this link?')) {
+                const li = button.closest('li');
+                li.remove();
+                saveAllLinks();
             }
         }
         
@@ -858,7 +943,7 @@
                         '</div>' +
                     '</div><ul class="subsection-links">';
                     sub.links.forEach(function(link) {
-                        html += '<li><a href="' + link.url + '" oncontextmenu="editLink(this); return false;" target="_blank">' + link.text + '</a></li>';
+                        html += '<li><a href="' + link.url + '" oncontextmenu="editLink(this); return false;" target="_blank">' + link.text + '</a><button class="link-delete-btn" onclick="deleteMainLink(this)">🗑️</button></li>';
                     });
                     html += '</ul>';
                     div.innerHTML = html;
